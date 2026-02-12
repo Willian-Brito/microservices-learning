@@ -462,8 +462,6 @@ Depois troca sem quebrar tudo.
    <img src="docs/img/patterns/api-gateway.png" />
 </div>
 
----
-
 ## 🗂️ Gerenciamento de Dados Distribuídos
 
 Em microsserviços, um dos maiores desafios **é como os dados são armazenados, compartilhados e sincronizados** sem quebrar autonomia e escalabilidade.
@@ -908,8 +906,6 @@ Dados que:
 | Transações distribuídas | Saga                         |
 | Dados antigos           | Cold Data                    |
 
-
----
 
 ## 🔁 Alta Disponibilidade e Resiliência 
 
@@ -1480,8 +1476,6 @@ Ele ajuda a implantar, escalar e **gerenciar aplicações em contêineres** (com
 | **Alibaba Cloud**               | Alibaba Cloud Container Service for Kubernetes | **ACK**   |
 | **DigitalOcean**                | DigitalOcean Kubernetes                        | **DOKS**  |
 | **Linode (Akamai Cloud)**       | Linode Kubernetes Engine                       | **LKE**   |
-
----
 
 ## 🕵🏻 Observabilidade
 
