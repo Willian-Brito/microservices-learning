@@ -382,8 +382,6 @@ Agora sim, faz sentido **diminuir o microsserviço.**
 > O tamanho de um microsserviço não é medido em linhas de código. \
 > É medido pela quantidade de motivos diferentes para mudar. 
 
----
-
 ## ⚒️ Padrões para evoluir monolito → microsserviços
 
 Aqui estão os mais importantes na vida real:
