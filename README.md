@@ -864,7 +864,7 @@ Não existe orquestrador.
 ### 8️⃣ Cold Data
 
 <div align="center">
-   <img src="docs/img/cold-data/1.png" height="300" />
+   <img src="docs/img/cold-data/1.png" />
 </div>
 
 #### 📍 O que é
