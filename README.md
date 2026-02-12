@@ -6,7 +6,7 @@ A arquitetura de microsserviços é uma **abordagem** onde uma aplicação é co
    <img src="docs/img/visao-de-arquitetura-microsservico.png" />
 </div>
 
-### 🔹 Principais características:
+### 🔷 Principais características:
 - **1. Independência**
     - Um microsserviço pode ser atualizado sem derrubar o resto do sistema.
     - Times diferentes podem trabalhar em serviços diferentes.
@@ -178,6 +178,7 @@ gRPC
 #### 🔷 Fase 4
 - Event-driven architecture
 
+---
 
 ## 📈 Timeline de Evolução do Tamanho de um Microsserviço
 
@@ -308,7 +309,7 @@ Agora sim, faz sentido **diminuir o microsserviço.**
 ### 📝 Novo desenho
 
 <div align="center">
-   <img src="docs/img/tamanho-do-microsservico/3.png" height="400" />
+   <img src="docs/img/tamanho-do-microsservico/3.png" height="300" />
 </div>
 
 
@@ -381,6 +382,7 @@ Agora sim, faz sentido **diminuir o microsserviço.**
 > O tamanho de um microsserviço não é medido em linhas de código. \
 > É medido pela quantidade de motivos diferentes para mudar. 
 
+---
 
 ## ⚒️ Padrões para evoluir monolito → microsserviços
 
@@ -408,7 +410,7 @@ O sistema novo vai **“estrangulando”** o antigo aos poucos.
 - Reverse proxy
 
 <div align="center">
-   <img src="docs/img/patterns/Strangler/strangler-facade.png" />
+   <img src="docs/img/patterns/Strangler/strangler-facade.png" height="100" />
 </div>
 
 ### 🔀 2. Branch by Abstraction
@@ -428,7 +430,7 @@ Depois troca sem quebrar tudo.
 - Extrair serviço
 
 <div align="center">
-   <img src="docs/img/patterns/branch-by-abstraction.png" />
+   <img src="docs/img/patterns/branch-by-abstraction.png" height="450" />
 </div>
 
 ### 🚧 3. Anti-Corruption Layer
@@ -485,7 +487,7 @@ Você **sempre abre mão de uma delas.**
    <img src="docs/img/teorema-cap/2.png" />
 </div>
 
-### 🔹 Consistência (C)
+### 🔷 Consistência (C)
 
 Todos os nós veem os mesmos dados ao mesmo tempo.
 
@@ -495,7 +497,7 @@ Todos os nós veem os mesmos dados ao mesmo tempo.
 #### 📌 Exemplo:
 Após atualizar o status de um pedido, qualquer serviço que consultar esse dado verá o novo status.
 
-### 🔹 Disponibilidade (A)
+### 🔷 Disponibilidade (A)
 
 O sistema **sempre responde**, mesmo que com erro ou dado antigo.
 
@@ -505,7 +507,7 @@ O sistema **sempre responde**, mesmo que com erro ou dado antigo.
 #### 📌  Exemplo:
 Mesmo com um nó fora do ar, a API continua respondendo.
 
-### 🔹 Tolerância a Partições (P)
+### 🔷 Tolerância a Partições (P)
 
 O sistema continua funcionando mesmo quando há falha de comunicação entre nós.
 
@@ -786,10 +788,7 @@ O **Padrão Saga** é um padrão de design usado em arquiteturas de microsservi�
 - Orquestrado
 - Coreografado (eventos)
 
-#### 📌  Exemplo:
-> Pedido → Pagamento → Estoque
-
-#### 🎭 Saga Orquestrada
+### 🎭 Saga Orquestrada
 #### 📍 O que é
 
 Existe um **orquestrador central** que:
@@ -824,10 +823,10 @@ Os serviços **não sabem o fluxo completo**, apenas executam comandos.
    - `CancelarPedido`
 
 <div align="center">
-   <img src="docs/img/patterns/SAGA/orquestrado.png" />
+   <img src="docs/img/patterns/SAGA/orquestrado.png" height="400" />
 </div>
 
-#### 🎶 Saga Coreografada
+### 🎶 Saga Coreografada
 #### 📍 O que é
 
 Não existe orquestrador.
@@ -1002,10 +1001,10 @@ A ideia é subir a versão gradaticamente em suas instâncias, caso o monitorame
 
 #### 📝 Práticas para gerenciamento de mudanças para evoluir sistemas sem indisponibilidade:
 
-- Feature Toggle 🎚️
-- Blue/Green Deployment 🔵🟢
-- Canary Release 🐤
-- Versionamento de APIs 📦
+- 🎚️ Feature Toggle
+- 🔵🟢 Blue/Green Deployment
+- 🐤 Canary Release
+- 📦 Versionamento de APIs
 
 #### 🎯 Objetivo:
 > Mudar com segurança, sem quebrar produção.
@@ -1302,7 +1301,7 @@ Em sistemas distribuídos:
 O **Retry Pattern** é um padrão de resiliência que consiste em **tentar novamente uma operação que falhou**, assumindo que a falha pode ser temporária.
 
 <div align="center">
-   <img src="docs/img/alta-disponibilidade-e-resiliencia/retry-pattern.png" />
+   <img src="docs/img/alta-disponibilidade-e-resiliencia/retry-pattern.png" height="400" />
 </div>
 
 #### 🤔 Quando usar?
@@ -1377,7 +1376,7 @@ Sem retry → pedido falharia desnecessariamente.
 O **Circuit Breaker** é um padrão de resiliência que evita que um sistema continue chamando um serviço que está falhando.
 
 <div align="center">
-   <img src="docs/img/alta-disponibilidade-e-resiliencia/circuit-breaker.png" />
+   <img src="docs/img/alta-disponibilidade-e-resiliencia/circuit-breaker.png" height="400" />
 </div>
 
 #### 🧠 Como funciona
@@ -1810,7 +1809,7 @@ Garantir que sistemas:
 - 📊 Tenham previsibilidade operacional
 
 ### 🧠 Conceitos Fundamentais
-#### 📊 SLA, SLO e SLI
+### 📊 SLA, SLO e SLI
 
 #### 🔷 SLI (Service Level Indicator)
 Métrica que mede algo importante.
@@ -1909,3 +1908,32 @@ SRE não é só técnica é **cultura**:
 - 🚀 Velocidade de entrega
 - 🛡️ Estabilidade
 - 📊 Métricas reais
+
+
+
+
+#### 📍 O que é
+
+#### 📌 Exemplo:
+
+#### 🧠 Como funciona
+
+#### 📝 Resumo
+
+#### ⚠️ Cuidados
+
+#### 🎯 Objetivo
+
+#### 📊 Benefícios
+
+#### 📍 Onde aplicar
+
+#### ✅ Vantagens
+
+#### ❌ Desvantagens
+
+📦
+
+📋
+
+🤔
