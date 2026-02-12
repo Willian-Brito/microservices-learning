@@ -1546,7 +1546,7 @@ Registros detalhados de eventos que aconteceram no sistema.
 É uma **técnica para monitorar** o **fluxo das solicitações**, permitindo acompanhar o **caminho** de uma requisição **atravessando múltiplos microsserviços.**
 
 <div align="center">
-   <img src="docs/img/observabilidade-para-resolver-problemas.png" height="350" />
+   <img src="docs/img/observabilidade-para-resolver-problemas.png" height="400" />
 </div>
 
 #### Exemplo:
@@ -1614,7 +1614,7 @@ Em vez de colocar tudo dentro da aplicação, você externaliza isso para um sid
 - Ciclo de vida
 
 <div align="center">
-   <img src="docs/img/sidecar/service-mesh.png" />
+   <img src="docs/img/sidecar/service-mesh.png" height="300" />
 </div>
 
 ### 📦 Exemplos Reais
@@ -1933,7 +1933,7 @@ Uma prática comum é adotar **Zero Trust**: nada é confiável por padrão, tud
 Aqui entra o mundo IAM (Identity and Access Management) / Identity.
 
 <div align="center">
-   <img src="docs/img/security/criptografia-assimetrica.png" height="300" />
+   <img src="docs/img/security/criptografia-assimetrica.png" />
 </div>
 
 #### 🧩 Stack típica
@@ -1980,7 +1980,7 @@ Front chama APIs usando JWT
 ### 🖧 Comunicação entre Serviços → Identidade + Criptografia
 
 <div align="center">
-   <img src="docs/img/security/ssl.png" height="300" />
+   <img src="docs/img/security/ssl.png"  />
 </div>
 
 #### 🔒 Identidade entre serviços
