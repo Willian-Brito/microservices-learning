@@ -406,7 +406,7 @@ O sistema novo vai **“estrangulando”** o antigo aos poucos.
 - Reverse proxy
 
 <div align="center">
-   <img src="docs/img/patterns/Strangler/strangler-facade.png" height="100" />
+   <img src="docs/img/patterns/Strangler/strangler-facade.png" height="300" />
 </div>
 
 ### 🔀 2. Branch by Abstraction
@@ -478,7 +478,7 @@ O teorema CAP diz que, em um sistema distribuído, **não é possível garantir 
 Você **sempre abre mão de uma delas.**
 
 <div align="center">
-   <img src="docs/img/teorema-cap/2.png" />
+   <img src="docs/img/teorema-cap/2.png" height="300" />
 </div>
 
 ### 🔷 Consistência (C)
@@ -689,7 +689,7 @@ Separação entre:
 Camada intermediária entre frontend e microsserviços.
 
 <div align="center">
-   <img src="docs/img/BFF/1.png" />
+   <img src="docs/img/BFF/1.png" height="350" />
 </div>
 
 #### 📝 Papel nos dados
@@ -708,7 +708,7 @@ Camada intermediária entre frontend e microsserviços.
 
 ### 6️⃣ Event Sourcing
 <div align="center">
-   <img src="docs/img/event-sourcing/1.png" />
+   <img src="docs/img/event-sourcing/1.png" height="350" />
 </div>
 
 #### 📍 O que é
@@ -732,7 +732,7 @@ O estado atual é reconstruído a partir desses eventos.
 **Snapshot** é uma “foto” do **estado atual** de uma entidade em um determinado momento.
 
 <div align="center">
-   <img src="docs/img/event-sourcing/3.png" />
+   <img src="docs/img/event-sourcing/3.png" height="250" />
 </div>
 
 No Event Sourcing, o estado é reconstruído lendo todos os eventos desde o início.
@@ -772,7 +772,7 @@ Snapshot é um cache persistido do estado atual para acelerar a reconstrução n
 O **Padrão Saga** é um padrão de design usado em arquiteturas de microsserviços para **gerenciar transações distribuídas e de longa duração**, garantindo a consistência dos dados em vários serviços independentes. Ele alcança isso por meio de uma sequência de transações locais e ações de compensação em caso de falha, em vez de depender de rollbacks tradicionais de banco de dados.
 
 <div align="center">
-   <img src="docs/img/patterns/SAGA/tipos.png" />
+   <img src="docs/img/patterns/SAGA/tipos.png" height="250" />
 </div>
 
 #### 📊 Resolve:
@@ -864,7 +864,7 @@ Não existe orquestrador.
 ### 8️⃣ Cold Data
 
 <div align="center">
-   <img src="docs/img/cold-data/1.png" />
+   <img src="docs/img/cold-data/1.png" height="300" />
 </div>
 
 #### 📍 O que é
@@ -1045,7 +1045,7 @@ Distribui requisições entre várias instâncias. Essas ferramentas oferecem re
 Manter **componentes duplicados** para eliminar pontos únicos de falha.
 
 <div align="center">
-   <img src="docs/img/alta-disponibilidade-e-resiliencia/geo-redundancia.png" />
+   <img src="docs/img/alta-disponibilidade-e-resiliencia/geo-redundancia.png" height="350" />
 </div>
 
 #### 📌 Exemplo:
@@ -1781,7 +1781,7 @@ Esses dados formam sua telemetria.
 - Telemetria é obrigatória.
 - APM é o acelerador de maturidade operacional.
 
-### 🚀 SRE (Site Reliability Engineering)
+## 🚀 SRE (Site Reliability Engineering)
 
 **SRE** é uma abordagem criada pelo Google que aplica **princípios de engenharia de software para resolver problemas de operações e confiabilidade.**
 
@@ -1933,7 +1933,7 @@ Uma prática comum é adotar **Zero Trust**: nada é confiável por padrão, tud
 Aqui entra o mundo IAM (Identity and Access Management) / Identity.
 
 <div align="center">
-   <img src="docs/img/security/criptografia-assimetrica.png" />
+   <img src="docs/img/security/criptografia-assimetrica.png" height="300" />
 </div>
 
 #### 🧩 Stack típica
@@ -2222,30 +2222,3 @@ Auth Service gera:
 | ⚙️ **JWA (JSON Web Algorithms)** | Especifica os algoritmos criptográficos usados para assinatura e criptografia (ex: RS256, ES256, HS256).        |
 | 🔑 **JWK (JSON Web Key)**        | Representação JSON de uma chave criptográfica usada para assinar ou validar tokens.                             |
 | 🗂️ **JWKS (JSON Web Key Set)**  | Conjunto de chaves públicas expostas via endpoint para validação de tokens em sistemas distribuídos.            |
-
-
-#### 📍 O que é
-
-#### 📌 Exemplo:
-
-#### 🧠 Como funciona
-
-#### 📝 Resumo
-
-#### ⚠️ Cuidados
-
-#### 🎯 Objetivo
-
-#### 📊 Benefícios
-
-#### 📍 Onde aplicar
-
-#### ✅ Vantagens
-
-#### ❌ Desvantagens
-
-📦
-
-📋
-
-🤔
