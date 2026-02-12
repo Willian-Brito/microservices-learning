@@ -478,7 +478,7 @@ O teorema CAP diz que, em um sistema distribuído, **não é possível garantir 
 Você **sempre abre mão de uma delas.**
 
 <div align="center">
-   <img src="docs/img/teorema-cap/2.png" height="300" />
+   <img src="docs/img/teorema-cap/2.png" height="350" />
 </div>
 
 ### 🔷 Consistência (C)
