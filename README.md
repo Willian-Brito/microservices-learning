@@ -72,8 +72,6 @@ A primeira regra dos microsserviços é: **“Não crie microsserviços.”** Ap
 - Observabilidade vira obrigatória (logs, métricas, tracing)
 - DevOps deixa de ser opcional
 
----
-
 ## 🏗️ Migrar Monolito para Microsserviços
 
 A extração deve ser gradual, você vai tirando pedaços do monolito.
