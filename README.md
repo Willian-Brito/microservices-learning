@@ -1466,7 +1466,7 @@ Ele ajuda a implantar, escalar e **gerenciar aplicações em contêineres** (com
 
 #### 🌥️ Principais provedores e suas implementações Kubernetes
 <div align="center">
-   <img src="docs/img/alta-disponibilidade-e-resiliencia/sabores-de-k8s.png" />
+   <img src="docs/img/alta-disponibilidade-e-resiliencia/sabores-de-k8s.png" height="250" />
 </div>
 
 #### 🌩️ Sabores de k8s
@@ -1556,7 +1556,7 @@ Registros detalhados de eventos que aconteceram no sistema.
 É uma **técnica para monitorar** o **fluxo das solicitações**, permitindo acompanhar o **caminho** de uma requisição **atravessando múltiplos microsserviços.**
 
 <div align="center">
-   <img src="docs/img/observabilidade-para-resolver-problemas.png" />
+   <img src="docs/img/observabilidade-para-resolver-problemas.png" height="350" />
 </div>
 
 #### Exemplo:
@@ -1586,7 +1586,7 @@ Cliente → API Gateway → Pedido → Pagamento → Estoque
 | 🔗 Tracing  | Onde está o problema? |
 
 
-### 🚗 O que é o Sidecar Pattern?
+### 🚗 Sidecar Pattern?
 
 O Sidecar Pattern consiste em executar um **componente auxiliar junto com o serviço principal**, normalmente no mesmo ambiente (ex: mesmo Pod no Kubernetes).
 
@@ -1909,7 +1909,329 @@ SRE não é só técnica é **cultura**:
 - 🛡️ Estabilidade
 - 📊 Métricas reais
 
+## 🛡️ Segurança
 
+Em uma arquitetura de microsserviços, a segurança se torna mais crítica porque o sistema deixa de ser uma única aplicação e passa a ser um conjunto distribuído de serviços que se comunicam constantemente pela rede.
+
+Isso aumenta a superfície de ataque, exige validação de identidade em cada comunicação, amplia os pontos de exposição de dados e torna mais complexa a gestão de segredos, acessos e auditoria. 
+
+Além disso, como os serviços são implantados e evoluem de forma independente, falhas de configuração, vulnerabilidades ou exposições acidentais de segredos, podem acontecer com mais facilidade. 
+
+Por isso, a segurança precisa ser tratada como uma responsabilidade transversal, envolvendo autenticação e autorização robustas, comunicação criptografada, proteção de infraestrutura e controle rigoroso de acesso aos dados.
+
+#### Em arquitetura distribuída você precisa proteger:
+
+- 👤 **Usuários →** autenticação e autorização
+- 🖧 **Comunicação entre serviços →** criptografia + identidade
+- 🖥  **Infraestrutura →** containers, rede, secrets, runtime
+- 📊 **Dados →** acesso, isolamento e integridade
+
+Uma prática comum é adotar **Zero Trust**: nada é confiável por padrão, tudo deve ser autenticado e autorizado
+
+#### 📊 Desafios exclusivos de microsserviços
+| Desafio                | Por que existe         |
+| ---------------------- | ---------------------- |
+| Identidade distribuída | Cada serviço valida    |
+| Gestão de segredo      | Muitos serviços        |
+| Autorização granular   | Cada domínio tem regra |
+| Auditoria              | Fluxo distribuído      |
+| Atualizações seguras   | Deploys independentes  |
+
+
+### 👤 Usuários → Autenticação e Autorização
+
+Aqui entra o mundo IAM (Identity and Access Management) / Identity.
+
+<div align="center">
+   <img src="docs/img/security/criptografia-assimetrica.png" />
+</div>
+
+#### 🧩 Stack típica
+
+- **OAuth 2.0 →** Autorização
+- **OpenID Connect →** Autenticação
+- **SSO →** Experiência unificada de login
+- **JWT →** Token transportando identidade + permissões
+
+#### 📌 Relação oficial entre eles:
+
+- **OAuth →** autoriza acesso a recursos
+- **OIDC →** autentica usuário (baseado em OAuth)
+- **SSO →** normalmente usa IdP + OIDC / SAML
+- **JWT →** formato do token
+
+> 👉 OAuth não autentica usuário, ele autoriza acesso. \
+> 👉 OIDC adiciona autenticação sobre OAuth. \
+> 👉 Em sistemas modernos, OIDC valida identidade e OAuth concede acesso a recursos.
+
+#### 🔑 Fluxo real
+```json
+User → Identity Provider (Keycloak / Auth0 / Azure AD)
+
+↓ (OIDC)
+Usuário autenticado
+
+↓ (OAuth)
+Access Token emitido (JWT)
+
+↓
+Front chama APIs usando JWT
+```
+#### 📦 Onde cada tecnologia entra
+| Tecnologia | Função                                   |
+| ---------- | ---------------------------------------- |
+| OAuth2     | Delegar autorização                      |
+| OIDC       | Login / identidade                       |
+| JWT        | Transportar identidade + claims          |
+| JWK        | Formato da chave pública                 |
+| JWKS       | Endpoint com conjunto de chaves públicas |
+
+
+### 🖧 Comunicação entre Serviços → Identidade + Criptografia
+
+<div align="center">
+   <img src="docs/img/security/ssl.png" height="300" />
+</div>
+
+#### 🔒 Identidade entre serviços
+
+- JWT Service-to-Service
+- OAuth Client Credentials Flow
+- mTLS
+- SPIFFE / Workload Identity
+
+#### 🔑 Como validação funciona
+```json
+Microservice recebe JWT
+↓
+Busca chave pública via JWKS
+↓
+Valida assinatura
+↓
+Autoriza request
+```
+
+👉 Serviços normalmente **cacheiam** as **chaves públicas JWKS** para performance.
+
+### 🖥 Infraestrutura → Runtime Security
+
+Aqui não é identidade de usuário, é segurança operacional.
+
+#### 🧱 Camadas
+
+#### Containers
+- Image scanning
+- Runtime protection
+- Least privilege
+
+#### Rede
+- Service Mesh
+- mTLS obrigatório
+- Network Policies
+
+####  Secrets
+- Vault
+- Secret Manager
+- Rotação automática
+
+### 📊 Dados → Integridade, Isolamento e Auditoria
+
+#### 🔐 Controles
+- RBAC / ABAC
+- Encryption at rest
+- Encryption in transit
+- Row level security
+- Data masking
+
+#### 📜 Auditoria
+- Logs imutáveis
+- Event sourcing
+- Tracing distribuído
+
+#### 💡 Mental Model Simples
+- **OAuth:** “Pode acessar?”
+- **OIDC:** “Quem é você?”
+- **JWT:** “Aqui está sua identidade + permissões”
+- **JWKS:** “Aqui estão as chaves públicas para validar tokens”
+
+#### ⭐ Regra de ouro em microsserviços
+👉 **Autenticação →** Centralizada (IdP) \
+👉 **Autorização →** Distribuída (cada serviço valida token)
+
+
+### 🧬 JOSE (JSON Object Signing and Encryption)
+
+O **JOSE (JSON Object Signing and Encryption)** é um framework de normas técnicas utilizado para proteger e assinar dados em formato JSON (JavaScript Object Notation). 
+
+#### O JOSE inclui:
+- 🪪 **JWT →** Container do token
+- ✍️ **JWS →** Assinatura digital
+- 🔒 **JWE →** Criptografia do conteúdo
+- ⚙️ **JWA →** Algoritmos usados
+- 🔑 **JWK →** Chave em formato JSON
+- 🗂️ **JWKS →** Conjunto de chaves públicas
+
+### 🪪 JWT (JSON Web Token)
+
+**JSON Web Token (JWT)** é um padrão aberto (RFC 7519) que define uma forma compacta e autônoma de transmitir informações seguras entre partes como um objeto JSON. 
+
+Geralmente usado para autenticação e autorização, ele permite que servidores verifiquem a identidade do usuário sem consultar o banco de dados a cada requisição. 
+
+```json
+HEADER.PAYLOAD.SIGNATURE
+```
+
+#### 📦 Contém
+- Claims (sub, roles, scopes)
+- Expiração
+- Issuer
+- Audience
+
+#### 💡 JWT pode ser:
+- Assinado → JWS
+- Criptografado → JWE
+
+### ✍️ JWS (JSON Web Signature)
+- 👉 Garante **integridade + autenticidade**
+- 👉 Não criptografa (payload fica legível)
+
+Muito comum em microsserviços.
+
+#### Exemplo mental
+Se alguém alterar o payload → assinatura quebra 🚨
+
+### 🔒 JWE (JSON Web Encryption)
+
+- 👉 Garante **confidencialidade**
+- 👉 Payload fica **criptografado**
+
+#### Usado quando:
+- Token tem dados sensíveis
+- Ambiente Zero Trust extremo
+
+⚠️ Mais pesado computacionalmente.
+
+### ⚙️ JWA (JSON Web Algorithms)
+
+👉 Define quais algoritmos são usados.
+
+#### Exemplos:
+- RS256 → RSA + SHA256
+- ES256 → ECDSA
+- HS256 → HMAC
+
+💡 **RS256** é muito usado porque permite validação com chave pública.
+
+
+### 🔑 JWK (JSON Web Key)
+
+- 👉 Formato JSON para representar chaves criptográficas
+- 👉 A Representação depende do algoritmo usado
+
+#### Ele pode representar:
+
+- ✅ Chave pública 
+- ✅ Chave privada
+- ✅ Chave simétrica (ex: HMAC) 
+
+#### 🔐 Algoritmos Assimétricos (RSA, ECDSA)
+
+#### Existem duas chaves:
+- **Pública →** valida token
+- **Privada →** assina token
+
+| Tipo       | Onde fica           |
+| ---------- | ------------------- |
+| 🔒 Privada | API Identity apenas |
+| 🌍 Pública | JWKS público        |
+
+
+#### 🧾 Exemplo JWK Pública (RSA)
+```json
+{
+  "kty": "RSA",
+  "kid": "123",
+  "n": "...",
+  "e": "AQAB"
+}
+```
+> 👉 Só contém dados públicos.
+
+#### 🚨 Exemplo JWK Privada (Nunca expor)
+```json
+{
+  "kty": "RSA",
+  "kid": "123",
+  "n": "...",
+  "e": "AQAB",
+  "d": "...",
+  "p": "...",
+  "q": "..."
+}
+```
+> 👉 Contém material secreto.
+
+#### 🔐 Algoritmos Simétricos (HS256)
+
+👉 Existe **uma única chave compartilhada**
+
+#### Nesse caso:
+- JWK pode representar a chave secreta
+- Não existe chave pública
+
+⚠️ Por isso HS256 é menos usado em microsserviços grandes.
+
+### 🗂️ JWKS (JSON Web Key Set)
+
+👉 Endpoint com várias chaves públicas.
+
+#### Exemplo:
+```json
+https://auth.meusistema.com/jwks
+```
+
+### 💡 Usado para:
+- Validação de assinatura JWT
+- Rotação automática de chaves
+- Cache de chaves pelos microserviços
+
+#### Permite:
+- Distribuir chaves
+- Rotacionar chaves
+- Identificar chave via `kid`
+
+### 🛒 Exemplo no e-commerce
+
+#### 👤 Login
+
+Auth Service gera:
+- JWT assinado (JWS)
+- Usando RS256 (JWA)
+- Com chave privada
+
+#### ⚙️ Microserviço Pedido
+- Busca JWKS
+- Encontra chave via kid
+- Valida token
+
+### 💡 Dica arquitetural
+
+#### Em microsserviços modernos:
+- JWT assinado (JWS)
+- RS256 / ES256
+- JWKS - endpoint público
+- Rotação automática de chaves
+
+### 📝 Resumo
+
+| 🔐 Tecnologia                    | 🧾 Descrição                                                                                                    |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| 🪪 **JWT (JSON Web Token)**      | Formato de token compacto usado para transportar informações (claims) entre partes de forma segura e stateless. |
+| ✍️ **JWS (JSON Web Signature)**  | Define como o JWT é assinado digitalmente, garantindo integridade e autenticidade dos dados.                    |
+| 🔒 **JWE (JSON Web Encryption)** | Define como o conteúdo do token é criptografado, garantindo confidencialidade dos dados.                        |
+| ⚙️ **JWA (JSON Web Algorithms)** | Especifica os algoritmos criptográficos usados para assinatura e criptografia (ex: RS256, ES256, HS256).        |
+| 🔑 **JWK (JSON Web Key)**        | Representação JSON de uma chave criptográfica usada para assinar ou validar tokens.                             |
+| 🗂️ **JWKS (JSON Web Key Set)**  | Conjunto de chaves públicas expostas via endpoint para validação de tokens em sistemas distribuídos.            |
 
 
 #### 📍 O que é
